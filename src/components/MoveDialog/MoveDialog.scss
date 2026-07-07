@@ -1,0 +1,41 @@
+.moveDialogList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.moveDialogOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 8px 10px;
+
+  font-size: 0.875rem;
+  text-align: left;
+  color: var(--foreground);
+
+  border-radius: calc(var(--radius) * 0.8);
+  cursor: pointer;
+}
+
+.moveDialogOption:hover {
+  background: var(--muted);
+}
+
+.moveDialogOption.isSelected {
+  color: var(--primary);
+
+  background: color-mix(in oklab, var(--primary) 12%, transparent);
+}
+
+.moveDialogEmpty {
+  padding: 4px 2px;
+
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}

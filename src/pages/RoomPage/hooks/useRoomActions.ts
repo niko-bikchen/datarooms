@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-import { createFolder, deleteNode, renameNode } from "@/lib/dataRoom";
+import { createFolder, deleteNode, moveNode, renameNode } from "@/lib/dataRoom";
 import { isRoom, NODE_KIND, type DataNode } from "@/lib/db";
 
 import { TRY_AGAIN_DESCRIPTION } from "@/lib/constants";
@@ -23,6 +23,7 @@ export default function useRoomActions({
 
   const [creatingFolder, setCreatingFolder] = useState(false);
   const [renaming, setRenaming] = useState<DataNode | null>(null);
+  const [moving, setMoving] = useState<DataNode | null>(null);
   const [deleting, setDeleting] = useState<DataNode | null>(null);
   const [viewing, setViewing] = useState<DataNode | null>(null);
 
@@ -75,6 +76,16 @@ export default function useRoomActions({
     if (renaming) await renameNode(renaming, name);
   };
 
+  const handleMoveSubmit = async (destParentId: string) => {
+    if (!moving) return;
+    await moveNode(moving, destParentId);
+    toast.success(`Moved "${moving.name}"`);
+  };
+
+  const handleMoveOpenChange = (open: boolean) => {
+    if (!open) setMoving(null);
+  };
+
   const handleRenameOpenChange = (open: boolean) => {
     if (!open) setRenaming(null);
   };
@@ -90,10 +101,12 @@ export default function useRoomActions({
   return {
     creatingFolder,
     renaming,
+    moving,
     deleting,
     viewing,
     setCreatingFolder,
     setRenaming,
+    setMoving,
     setDeleting,
     openNode,
     handleDelete,
@@ -102,6 +115,8 @@ export default function useRoomActions({
     handleCreateFolderSubmit,
     handleRenameSubmit,
     handleRenameOpenChange,
+    handleMoveSubmit,
+    handleMoveOpenChange,
     handleDeleteOpenChange,
     handleViewerOpenChange,
   };

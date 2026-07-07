@@ -16,6 +16,7 @@ interface RoomContentProps {
   pathById: Map<string, string>;
   onOpen: (node: DataNode) => void;
   onRename: (node: DataNode) => void;
+  onMove: (node: DataNode) => void;
   onDelete: (node: DataNode) => void;
   onCreateFolder: () => void;
   onUpload: () => void;
@@ -29,6 +30,7 @@ export default function RoomContent({
   pathById,
   onOpen,
   onRename,
+  onMove,
   onDelete,
   onCreateFolder,
   onUpload,
@@ -39,6 +41,7 @@ export default function RoomContent({
       node={node}
       onOpen={onOpen}
       onRename={onRename}
+      onMove={onMove}
       onDelete={onDelete}
       subtitle={searching ? pathById.get(node.id) : undefined}
     />

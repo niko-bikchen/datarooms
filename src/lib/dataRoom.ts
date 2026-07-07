@@ -145,6 +145,42 @@ export async function renameNode(node: DataNode, name: string): Promise<void> {
   });
 }
 
+// Moves `node` under `destParentId` within the same room. Rejects a name
+// clash at the destination and moving a folder into its own subtree.
+export async function moveNode(
+  node: DataNode,
+  destParentId: string,
+): Promise<void> {
+  await db.transaction("rw", db.nodes, async () => {
+    const dest = await db.nodes.get(destParentId);
+    if (!dest || dest.kind !== NODE_KIND.folder) {
+      throw new UserFacingError("That folder no longer exists.");
+    }
+
+    if (destParentId === node.parentId) return;
+
+    const descendantIds = await collectDescendantIds(node);
+    if (descendantIds.includes(destParentId)) {
+      throw new UserFacingError(
+        "A folder can't be moved into itself or its own subfolders.",
+      );
+    }
+
+    const conflict = await findConflict(
+      destParentId,
+      node.kind,
+      node.name,
+      node.id,
+    );
+    if (conflict) throw new NameConflictError(node.kind, node.name);
+
+    await db.nodes.update(node.id, {
+      parentId: destParentId,
+      updatedAt: Date.now(),
+    });
+  });
+}
+
 // Ids of `node` and everything nested under it. Cycle-safe.
 export async function collectDescendantIds(node: DataNode): Promise<string[]> {
   const visited = new Set<string>();

@@ -1,4 +1,11 @@
-import { FileText, Folder, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import {
+  FileText,
+  Folder,
+  FolderInput,
+  MoreHorizontal,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 
 import { NODE_KIND, type DataNode } from "@/lib/db";
 import { formatBytes, formatDate } from "@/lib/format";
@@ -18,6 +25,7 @@ interface NodeRowProps {
   node: DataNode;
   onOpen: (node: DataNode) => void;
   onRename: (node: DataNode) => void;
+  onMove: (node: DataNode) => void;
   onDelete: (node: DataNode) => void;
   subtitle?: string;
 }
@@ -31,6 +39,7 @@ export default function NodeRow({
   node,
   onOpen,
   onRename,
+  onMove,
   onDelete,
   subtitle,
 }: NodeRowProps) {
@@ -45,6 +54,10 @@ export default function NodeRow({
 
   const handleRename = () => {
     onRename(node);
+  };
+
+  const handleMove = () => {
+    onMove(node);
   };
 
   const handleDelete = () => {
@@ -77,6 +90,9 @@ export default function NodeRow({
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={handleRename}>
             <Pencil /> Rename
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={handleMove}>
+            <FolderInput /> Move
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive" onClick={handleDelete}>

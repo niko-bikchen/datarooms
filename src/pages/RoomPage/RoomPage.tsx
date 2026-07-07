@@ -10,6 +10,7 @@ import useRoomUpload from "./hooks/useRoomUpload";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import DeleteDialog from "@/components/DeleteDialog/DeleteDialog";
+import MoveDialog from "@/components/MoveDialog/MoveDialog";
 import NameDialog from "@/components/NameDialog/NameDialog";
 import PdfViewer from "@/components/PdfViewer/PdfViewer";
 import FolderNotFound from "./components/FolderNotFound/FolderNotFound";
@@ -108,6 +109,7 @@ export default function RoomPage() {
               pathById={search.pathById}
               onOpen={actions.openNode}
               onRename={actions.setRenaming}
+              onMove={actions.setMoving}
               onDelete={actions.setDeleting}
               onCreateFolder={actions.openCreateFolderDialog}
               onUpload={upload.openFilePicker}
@@ -137,6 +139,12 @@ export default function RoomPage() {
         submitLabel="Rename"
         initialValue={actions.renaming?.name}
         onSubmit={actions.handleRenameSubmit}
+      />
+      <MoveDialog
+        node={actions.moving}
+        roomNodes={data.roomNodes}
+        onOpenChange={actions.handleMoveOpenChange}
+        onConfirm={actions.handleMoveSubmit}
       />
       <DeleteDialog
         node={actions.deleting}
