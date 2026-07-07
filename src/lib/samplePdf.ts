@@ -31,14 +31,17 @@ export function createSamplePdf(title: string, lines: string[]): Blob {
 
   let pdf = "%PDF-1.4\n";
   const offsets: number[] = [];
+
   objects.forEach((body, i) => {
     offsets.push(byteLength(pdf));
     pdf += `${i + 1} 0 obj\n${body}\nendobj\n`;
   });
 
   const xrefOffset = byteLength(pdf);
+
   pdf += `xref\n0 ${objects.length + 1}\n`;
   pdf += "0000000000 65535 f \n";
+
   for (const offset of offsets) {
     pdf += `${String(offset).padStart(10, "0")} 00000 n \n`;
   }

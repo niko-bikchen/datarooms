@@ -54,6 +54,7 @@ export function registerSeed(): void {
         spec.name,
         nextTick(),
       );
+
       await tx.table(NODES_TABLE).add(folder);
 
       for (const child of spec.folders ?? []) {
@@ -65,6 +66,7 @@ export function registerSeed(): void {
           fileName.replace(/\.pdf$/i, ""),
           SAMPLE_PDF_BODY,
         );
+
         const file = newNode(
           folder.id,
           folder.roomId,
@@ -72,7 +74,9 @@ export function registerSeed(): void {
           fileName,
           nextTick(),
         );
+
         file.size = blob.size;
+
         await tx.table(NODES_TABLE).add(file);
         await tx.table(BLOBS_TABLE).add({ nodeId: file.id, blob });
       }
