@@ -1,0 +1,56 @@
+.pdfViewerContent {
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+
+  @media (min-width: 640px) {
+    max-width: 64rem;
+  }
+}
+
+.pdfViewerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-right: 2rem;
+}
+
+.pdfViewerActions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pdfViewerFrame {
+  min-height: 0;
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.8);
+  background-color: var(--muted);
+}
+
+.pdfViewerMissing {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.8);
+  background-color: var(--muted);
+}
+
+.pdfViewerSkeleton {
+  min-height: 0;
+  flex: 1;
+  border-radius: calc(var(--radius) * 0.8);
+}

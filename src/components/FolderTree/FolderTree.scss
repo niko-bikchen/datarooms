@@ -1,0 +1,82 @@
+.folderTree {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.folderTreeEmpty {
+  padding: 0.25rem 0.5rem;
+
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+}
+
+.treeItemRow {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding-right: 0.25rem;
+
+  border-radius: calc(var(--radius) * 0.8);
+
+  &:not(.isCurrent):hover {
+    background-color: color-mix(in oklab, var(--muted) 70%, transparent);
+  }
+
+  &.isCurrent {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+.treeItemToggle {
+  display: flex;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--muted-foreground);
+
+  border-radius: 0.25rem;
+
+  &:hover {
+    color: var(--foreground);
+  }
+
+  &.isHidden {
+    visibility: hidden;
+  }
+}
+
+.treeItemChevron {
+  width: 0.875rem;
+  height: 0.875rem;
+
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.isExpanded {
+    transform: rotate(90deg);
+  }
+}
+
+.treeItemLabel {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 0.375rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+
+  text-align: left;
+}
+
+.treeItemIcon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+
+  color: var(--muted-foreground);
+}

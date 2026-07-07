@@ -1,0 +1,85 @@
+.nodeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+
+  border-bottom: 1px solid var(--border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &:has(:focus-visible) {
+    background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+  }
+}
+
+.nodeRowMain {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+  outline: none;
+}
+
+.nodeRowFolderIcon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+
+  color: var(--primary);
+  fill: color-mix(in oklab, var(--primary) 10%, transparent);
+}
+
+.nodeRowFileIcon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: color-mix(in oklab, oklch(0.505 0.213 27.518) 80%, transparent);
+}
+
+.nodeRowName {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.nodeRowSubtitle {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+}
+
+.nodeRowMeta {
+  display: none;
+  flex: none;
+
+  text-align: right;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+
+  @media (min-width: 640px) {
+    display: block;
+  }
+}
+
+.nodeRowMetaSize {
+  width: 5rem;
+}
+
+.nodeRowMetaDate {
+  width: 6rem;
+}

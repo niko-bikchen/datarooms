@@ -1,0 +1,118 @@
+.roomPage {
+  display: flex;
+  height: 100dvh;
+  flex-direction: column;
+}
+
+.roomPageHeader {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.roomPageToolbar {
+  display: flex;
+  flex: none;
+  margin-left: auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roomPageSearch {
+  height: 2rem;
+  width: 11rem;
+
+  @media (min-width: 640px) {
+    width: 16rem;
+  }
+}
+
+.roomPageBody {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+}
+
+.roomPageSidebar {
+  display: none;
+  width: 15rem;
+  flex: none;
+
+  border-right: 1px solid var(--border);
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.roomPageSidebarTitle {
+  margin-bottom: 0.5rem;
+  padding-inline: 0.5rem;
+
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.roomPageMain {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+}
+
+.roomPageSearchMeta {
+  padding: 0.5rem 0.75rem;
+
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+
+  border-bottom: 1px solid var(--border);
+}
+
+.roomPageSkeletons {
+  padding: 0.75rem;
+
+  > * + * {
+    margin-top: 0.5rem;
+  }
+}
+
+.roomPageNotFound {
+  max-width: 28rem;
+  margin-inline: auto;
+  padding: 6rem 1rem;
+}
+
+.roomPageDropOverlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0.5rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius);
+  background-color: color-mix(in oklab, var(--primary) 5%, transparent);
+}
+
+.roomPageDropHint {
+  padding: 0.375rem 0.75rem;
+
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+
+  border-radius: calc(var(--radius) * 0.8);
+  background-color: var(--background);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
