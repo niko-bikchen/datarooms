@@ -1,4 +1,11 @@
-import { db, NODE_KIND, ROOT_ID, type DataNode, type NodeKind } from "@/lib/db";
+import {
+  db,
+  NODE_KIND,
+  ROOT_ID,
+  type DataNode,
+  type FileBlob,
+  type NodeKind,
+} from "@/lib/db";
 
 import { PDF_FILE_EXTENSION, PDF_MIME_TYPE } from "@/lib/constants";
 
@@ -29,12 +36,14 @@ async function findConflict(
   name: string,
   excludeId?: string,
 ): Promise<DataNode | undefined> {
+  const target = nameKey(name);
   const siblings = await siblingsOf(parentId);
+
   return siblings.find(
     (node) =>
       node.kind === kind &&
       node.id !== excludeId &&
-      nameKey(node.name) === nameKey(name),
+      nameKey(node.name) === target,
   );
 }
 
@@ -45,6 +54,7 @@ async function findConflict(
  */
 async function assertParentFolder(parent: DataNode): Promise<void> {
   const current = await db.nodes.get(parent.id);
+
   if (!current || current.kind !== NODE_KIND.folder) {
     throw new UserFacingError(`The folder "${parent.name}" no longer exists.`);
   }
@@ -61,6 +71,7 @@ function dedupeName(
   const dot = kind === NODE_KIND.file ? name.lastIndexOf(".") : -1;
   const base = dot > 0 ? name.slice(0, dot) : name;
   const ext = dot > 0 ? name.slice(dot) : "";
+
   for (let i = 2; ; i++) {
     const candidate = `${base} (${i})${ext}`;
     if (!taken.has(nameKey(candidate))) return candidate;
@@ -90,9 +101,12 @@ export function newNode(
 export async function createRoom(name: string): Promise<DataNode> {
   return db.transaction("rw", db.nodes, async () => {
     const conflict = await findConflict(ROOT_ID, NODE_KIND.folder, name);
+
     if (conflict) throw new NameConflictError(NODE_KIND.folder, name.trim());
+
     const room = newNode(ROOT_ID, "", NODE_KIND.folder, name);
     await db.nodes.add(room);
+
     return room;
   });
 }
@@ -103,10 +117,14 @@ export async function createFolder(
 ): Promise<DataNode> {
   return db.transaction("rw", db.nodes, async () => {
     await assertParentFolder(parent);
+
     const conflict = await findConflict(parent.id, NODE_KIND.folder, name);
+
     if (conflict) throw new NameConflictError(NODE_KIND.folder, name.trim());
+
     const folder = newNode(parent.id, parent.roomId, NODE_KIND.folder, name);
     await db.nodes.add(folder);
+
     return folder;
   });
 }
@@ -119,7 +137,9 @@ export async function renameNode(node: DataNode, name: string): Promise<void> {
       name,
       node.id,
     );
+
     if (conflict) throw new NameConflictError(node.kind, name.trim());
+
     await db.nodes.update(node.id, {
       name: name.trim(),
       updatedAt: Date.now(),
@@ -130,14 +150,19 @@ export async function renameNode(node: DataNode, name: string): Promise<void> {
 /** Ids of `node` and everything nested under it. Cycle-safe. */
 export async function collectDescendantIds(node: DataNode): Promise<string[]> {
   const visited = new Set<string>();
+
   let frontier = [node.id];
+
   while (frontier.length > 0) {
     frontier.forEach((id) => visited.add(id));
+
     const children = await db.nodes.where("parentId").anyOf(frontier).toArray();
+
     frontier = children
       .map((child) => child.id)
       .filter((id) => !visited.has(id));
   }
+
   return [...visited];
 }
 
@@ -145,6 +170,7 @@ export async function collectDescendantIds(node: DataNode): Promise<string[]> {
 export async function deleteNode(node: DataNode): Promise<void> {
   await db.transaction("rw", db.nodes, db.blobs, async () => {
     const ids = await collectDescendantIds(node);
+
     await db.nodes.bulkDelete(ids);
     await db.blobs.bulkDelete(ids);
   });
@@ -170,33 +196,44 @@ export async function uploadFiles(
   parent: DataNode,
   files: File[],
 ): Promise<UploadResult> {
-  const accepted = files.filter(isPdf);
-  const rejected = files
-    .filter((file) => !isPdf(file))
-    .map((file) => file.name);
+  const accepted: File[] = [];
+  const rejected: string[] = [];
+  for (const file of files) {
+    if (isPdf(file)) accepted.push(file);
+    else rejected.push(file.name);
+  }
 
   const added = await db.transaction("rw", db.nodes, db.blobs, async () => {
     await assertParentFolder(parent);
+
     const siblings = await siblingsOf(parent.id);
     const taken = new Set(
       siblings
         .filter((node) => node.kind === NODE_KIND.file)
         .map((node) => nameKey(node.name)),
     );
+
     const nodes: DataNode[] = [];
+    const blobs: FileBlob[] = [];
+
     for (const file of accepted) {
       const node = newNode(parent.id, parent.roomId, NODE_KIND.file, "");
+
       node.name = dedupeName(
         taken,
         NODE_KIND.file,
         file.name.trim() || UNTITLED_FILE_NAME,
       );
       node.size = file.size;
+
       taken.add(nameKey(node.name));
-      await db.nodes.add(node);
-      await db.blobs.add({ nodeId: node.id, blob: file });
       nodes.push(node);
+      blobs.push({ nodeId: node.id, blob: file });
     }
+
+    await db.nodes.bulkAdd(nodes);
+    await db.blobs.bulkAdd(blobs);
+
     return nodes;
   });
 
@@ -208,12 +245,17 @@ export async function getPath(node: DataNode): Promise<DataNode[]> {
   const path = [node];
   const seen = new Set([node.id]);
   let current = node;
+
   while (current.parentId !== ROOT_ID) {
     const parent = await db.nodes.get(current.parentId);
+  
     if (!parent || seen.has(parent.id)) break;
+  
     seen.add(parent.id);
     path.unshift(parent);
+  
     current = parent;
   }
+  
   return path;
 }
