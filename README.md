@@ -1,7 +1,7 @@
 # Datarooms
 
-Create data rooms, nest folders, and upload, view, rename and delete PDFs.
-Everything is stored in the browser with IndexedDB.
+Create data rooms, nest folders, and upload, view, rename, move and delete
+PDFs. Everything is stored in the browser with IndexedDB.
 
 ## Setup
 
@@ -43,5 +43,5 @@ case-insensitively within the same parent, a folder and a file may share one.
 ## Limitations
 
 - Search matches file names, not PDF contents.
-- No move/reorganize UI (the model supports it — change `parentId`).
+- Move is within a single data room; no cross-room move or drag-and-drop.
 - No auth or sharing; data is per browser profile.
