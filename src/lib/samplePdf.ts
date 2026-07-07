@@ -1,7 +1,5 @@
-/**
- * Generates a small, valid single-page PDF so the seeded demo content can be
- * opened in the viewer without shipping binary fixtures.
- */
+// Generates a small, valid single-page PDF so the seeded demo content can be
+// opened in the viewer without shipping binary fixtures.
 export function createSamplePdf(title: string, lines: string[]): Blob {
   const escape = (text: string) => text.replace(/[\\()]/g, (c) => `\\${c}`);
   // PDF lengths and xref offsets are byte counts; JS string .length counts

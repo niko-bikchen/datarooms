@@ -22,7 +22,7 @@ interface NameDialogProps {
   label: string;
   submitLabel: string;
   initialValue?: string;
-  /** Persists the name; a thrown UserFacingError shows as an inline error. */
+  // Persists the name; a thrown UserFacingError shows as an inline error.
   onSubmit: (name: string) => Promise<void>;
 }
 
@@ -32,7 +32,6 @@ function getErrorMessage(err: unknown): string {
   return "Something went wrong. Please try again.";
 }
 
-/** Shared create/rename dialog with empty-name and conflict error handling. */
 export default function NameDialog({
   open,
   onOpenChange,

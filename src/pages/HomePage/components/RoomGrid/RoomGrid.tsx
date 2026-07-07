@@ -10,7 +10,6 @@ import EmptyState from "@/components/EmptyState/EmptyState";
 import RoomCard from "../RoomCard/RoomCard";
 
 interface RoomGridProps {
-  /** All data rooms; `undefined` while loading. */
   rooms: DataNode[] | undefined;
   itemCounts: Map<string, number> | undefined;
   onOpen: (room: DataNode) => void;
@@ -19,7 +18,6 @@ interface RoomGridProps {
   onCreate: () => void;
 }
 
-/** The data room grid: cards, first-run empty state, or loading skeletons. */
 export default function RoomGrid({
   rooms,
   itemCounts,

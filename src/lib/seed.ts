@@ -35,7 +35,7 @@ const SAMPLE_PDF_BODY = [
   "Replace it by uploading your own PDF files.",
 ];
 
-/** Populates the database with a demo data room on first launch. */
+// Populates the database with a demo data room on first launch.
 export function registerSeed(): void {
   db.on("populate", (tx) => {
     // Stagger timestamps so the seeded content doesn't all share one instant.

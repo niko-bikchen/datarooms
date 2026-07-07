@@ -14,7 +14,6 @@ function getToggleLabel(expanded: boolean, folderName: string): string {
   return expanded ? `Collapse ${folderName}` : `Expand ${folderName}`;
 }
 
-/** A single folder in the tree, with its expand/collapse state. */
 export default function TreeItem({
   folder,
   depth,

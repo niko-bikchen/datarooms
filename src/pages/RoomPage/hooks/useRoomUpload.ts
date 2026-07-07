@@ -6,7 +6,6 @@ import { type DataNode } from "@/lib/db";
 
 import { getUploadErrorDescription } from "../utils/roomPageUtils";
 
-/** Drag-and-drop and file-picker uploads for the current folder. */
 export default function useRoomUpload(folder: DataNode | null | undefined) {
   const [dragging, setDragging] = useState(false);
   const dragDepth = useRef(0);

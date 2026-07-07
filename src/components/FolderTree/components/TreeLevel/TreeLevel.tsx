@@ -11,7 +11,6 @@ export interface TreeLevelProps {
   onNavigate: (folderId: string) => void;
 }
 
-/** One indentation level of the folder tree. */
 export default function TreeLevel({
   parentId,
   depth,

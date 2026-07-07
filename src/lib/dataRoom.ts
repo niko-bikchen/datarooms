@@ -13,7 +13,7 @@ const UNTITLED_FILE_NAME = "untitled.pdf";
 
 const nameKey = (name: string) => name.trim().toLocaleLowerCase();
 
-/** An error whose message is written for end users and safe to display. */
+// An error whose message is written for end users and safe to display.
 export class UserFacingError extends Error {}
 
 export class NameConflictError extends UserFacingError {
@@ -29,7 +29,7 @@ async function siblingsOf(parentId: string): Promise<DataNode[]> {
   return db.nodes.where("parentId").equals(parentId).toArray();
 }
 
-/** Case-insensitive name conflict check among siblings of the same kind. */
+// Case-insensitive name conflict check among siblings of the same kind.
 async function findConflict(
   parentId: string,
   kind: NodeKind,
@@ -47,11 +47,9 @@ async function findConflict(
   );
 }
 
-/**
- * Re-reads the parent inside the current transaction: it must still exist and
- * be a folder, otherwise a concurrent delete (e.g. another tab) would let us
- * insert children under a node that is gone.
- */
+// Re-reads the parent inside the current transaction: it must still exist and
+// be a folder, otherwise a concurrent delete (e.g. another tab) would let us
+// insert children under a node that is gone.
 async function assertParentFolder(parent: DataNode): Promise<void> {
   const current = await db.nodes.get(parent.id);
 
@@ -60,7 +58,7 @@ async function assertParentFolder(parent: DataNode): Promise<void> {
   }
 }
 
-/** Returns `name`, or `name (2)`, `name (3)`, … until it is not in `taken`. */
+// Returns `name`, or `name (2)`, `name (3)`, … until it is not in `taken`.
 function dedupeName(
   taken: ReadonlySet<string>,
   kind: NodeKind,
@@ -78,7 +76,7 @@ function dedupeName(
   }
 }
 
-/** Single node factory — the seed reuses it with explicit timestamps. */
+// Single node factory — the seed reuses it with explicit timestamps.
 export function newNode(
   parentId: string,
   roomId: string,
@@ -147,7 +145,7 @@ export async function renameNode(node: DataNode, name: string): Promise<void> {
   });
 }
 
-/** Ids of `node` and everything nested under it. Cycle-safe. */
+// Ids of `node` and everything nested under it. Cycle-safe.
 export async function collectDescendantIds(node: DataNode): Promise<string[]> {
   const visited = new Set<string>();
 
@@ -166,7 +164,7 @@ export async function collectDescendantIds(node: DataNode): Promise<string[]> {
   return [...visited];
 }
 
-/** Deletes a node and, for folders, all nested folders and files. */
+// Deletes a node and, for folders, all nested folders and files.
 export async function deleteNode(node: DataNode): Promise<void> {
   await db.transaction("rw", db.nodes, db.blobs, async () => {
     const ids = await collectDescendantIds(node);
@@ -188,10 +186,8 @@ function isPdf(file: File): boolean {
   );
 }
 
-/**
- * Stores the PDFs among `files` under `parent`; non-PDFs are reported back in
- * `rejected`. Name collisions are resolved by suffixing, e.g. "report (2).pdf".
- */
+// Stores the PDFs among `files` under `parent`; non-PDFs are reported back in
+// `rejected`. Name collisions are resolved by suffixing, e.g. "report (2).pdf".
 export async function uploadFiles(
   parent: DataNode,
   files: File[],
@@ -240,7 +236,7 @@ export async function uploadFiles(
   return { added, rejected };
 }
 
-/** Path from the data room down to `node`, inclusive. Cycle-safe. */
+// Path from the data room down to `node`, inclusive. Cycle-safe.
 export async function getPath(node: DataNode): Promise<DataNode[]> {
   const path = [node];
   const seen = new Set([node.id]);
@@ -248,14 +244,14 @@ export async function getPath(node: DataNode): Promise<DataNode[]> {
 
   while (current.parentId !== ROOT_ID) {
     const parent = await db.nodes.get(current.parentId);
-  
+
     if (!parent || seen.has(parent.id)) break;
-  
+
     seen.add(parent.id);
     path.unshift(parent);
-  
+
     current = parent;
   }
-  
+
   return path;
 }

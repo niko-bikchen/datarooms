@@ -28,7 +28,6 @@ function getMeta(room: DataNode, itemCount: number): string {
   return `${itemCount} item${plural} · created ${formatDate(room.createdAt)}`;
 }
 
-/** One data room on the home page grid. */
 export default function RoomCard({
   room,
   itemCount,

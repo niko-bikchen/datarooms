@@ -5,14 +5,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import FolderTree from "@/components/FolderTree/FolderTree";
 
 interface RoomSidebarProps {
-  /** Every node of the room; `undefined` while loading. */
   roomNodes: DataNode[] | undefined;
   roomId: string | undefined;
   currentFolderId: string | undefined;
   onNavigate: (folderId: string) => void;
 }
 
-/** Sidebar folder tree, with a loading placeholder. */
 export default function RoomSidebar({
   roomNodes,
   roomId,

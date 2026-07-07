@@ -15,7 +15,6 @@ interface RoomToolbarProps {
   onFileInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-/** Search field plus the new-folder and upload controls in the room header. */
 export default function RoomToolbar({
   query,
   onSearchChange,

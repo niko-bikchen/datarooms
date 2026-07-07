@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { collectDescendantIds } from "@/lib/dataRoom";
 import { NODE_KIND, type DataNode } from "@/lib/db";
 
-/**
- * Number of items nested under a folder. `null` while the count is being
- * computed — callers must not claim the folder is empty until it resolves.
- */
+// Number of items nested under a folder. `null` while the count is being
+// computed — callers must not claim the folder is empty until it resolves.
 export default function useDescendantCount(
   node: DataNode | null,
 ): number | null {

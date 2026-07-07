@@ -14,7 +14,6 @@ interface RoomActionsParams {
   clearQuery: () => void;
 }
 
-/** Create/rename/delete/view dialog state and the node actions that drive navigation. */
 export default function useRoomActions({
   folder,
   path,

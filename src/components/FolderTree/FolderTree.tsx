@@ -8,14 +8,13 @@ import TreeLevel from "./components/TreeLevel/TreeLevel";
 import "./FolderTree.scss";
 
 interface FolderTreeProps {
-  /** Every node of the room; files are filtered out here. */
+  // Every node of the room; files are filtered out here.
   nodes: DataNode[];
   roomId: string;
   currentFolderId: string;
   onNavigate: (folderId: string) => void;
 }
 
-/** Collapsible folder hierarchy shown in the room sidebar. */
 export default function FolderTree({
   nodes,
   roomId,

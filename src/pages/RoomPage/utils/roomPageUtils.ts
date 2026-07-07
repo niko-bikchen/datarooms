@@ -19,7 +19,7 @@ export function filterRoomNodes(
     .sort(compareNodes);
 }
 
-/** Ancestor path names for each search result, e.g. "Financials / Annual Reports". */
+// Ancestor path names for each search result, e.g. "Financials / Annual Reports".
 export function buildResultPaths(
   results: DataNode[],
   roomNodes: DataNode[],

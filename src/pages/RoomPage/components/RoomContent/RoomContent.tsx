@@ -9,13 +9,10 @@ import EmptyState from "@/components/EmptyState/EmptyState";
 import NodeRow from "@/components/NodeRow/NodeRow";
 
 interface RoomContentProps {
-  /** Folder children, or search results while searching; `undefined` while loading. */
   nodes: DataNode[] | undefined;
-  /** False until the folder record itself has loaded. */
   ready: boolean;
   searching: boolean;
   query: string;
-  /** Ancestor path subtitle per node id, shown for search results. */
   pathById: Map<string, string>;
   onOpen: (node: DataNode) => void;
   onRename: (node: DataNode) => void;
@@ -24,7 +21,6 @@ interface RoomContentProps {
   onUpload: () => void;
 }
 
-/** The folder listing: rows, no-results state, empty-folder state, or skeletons. */
 export default function RoomContent({
   nodes,
   ready,

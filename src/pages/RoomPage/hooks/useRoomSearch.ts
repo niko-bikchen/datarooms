@@ -4,7 +4,6 @@ import { type DataNode } from "@/lib/db";
 
 import { buildResultPaths, filterRoomNodes } from "../utils/roomPageUtils";
 
-/** Search query state and the results derived from the live room nodes. */
 export default function useRoomSearch(roomNodes: DataNode[] | undefined) {
   const [query, setQuery] = useState("");
 

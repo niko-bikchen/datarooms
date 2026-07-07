@@ -1,14 +1,12 @@
 import { Button } from "@/components/ui/button";
 
 interface PdfViewerActionProps {
-  /** Blob URL of the document; the action renders disabled until it exists. */
   href: string | null;
-  /** When set, the link saves the file under this name instead of opening it. */
+  // When set, the link saves the file under this name instead of opening it.
   downloadName?: string;
   children: React.ReactNode;
 }
 
-/** Toolbar action for the viewer header: open-in-tab or download. */
 export default function PdfViewerAction({
   href,
   downloadName,

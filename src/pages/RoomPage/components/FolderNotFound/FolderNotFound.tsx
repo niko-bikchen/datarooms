@@ -7,7 +7,6 @@ import EmptyState from "@/components/EmptyState/EmptyState";
 
 import { HOME_PATH } from "@/lib/routes";
 
-/** Shown when the URL points at a deleted folder or a non-folder node. */
 export default function FolderNotFound() {
   return (
     <div className="roomPageNotFound">

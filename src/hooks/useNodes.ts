@@ -4,7 +4,6 @@ import { compareNodes } from "@/lib/compareNodes";
 import { getPath } from "@/lib/dataRoom";
 import { db, ROOT_ID, type DataNode } from "@/lib/db";
 
-/** All data rooms. `undefined` while loading. */
 export function useRooms(): DataNode[] | undefined {
   return useLiveQuery(async () => {
     const rooms = await db.nodes.where("parentId").equals(ROOT_ID).toArray();
@@ -12,7 +11,6 @@ export function useRooms(): DataNode[] | undefined {
   }, []);
 }
 
-/** Number of items (folders + files) in each data room, keyed by room id. */
 export function useRoomItemCounts(): Map<string, number> | undefined {
   return useLiveQuery(async () => {
     const roomIds = (await db.nodes
@@ -33,7 +31,7 @@ export function useRoomItemCounts(): Map<string, number> | undefined {
   }, []);
 }
 
-/** A single node. `undefined` while loading, `null` if it doesn't exist. */
+// `undefined` while loading, `null` if the node doesn't exist.
 export function useNode(id: string | undefined): DataNode | null | undefined {
   return useLiveQuery(async () => {
     if (!id) return null;
@@ -54,7 +52,6 @@ export function useChildren(
   }, [parentId]);
 }
 
-/** Path from the data room down to the node, for breadcrumbs. */
 export function usePath(
   node: DataNode | null | undefined,
 ): DataNode[] | undefined {
@@ -64,7 +61,6 @@ export function usePath(
   );
 }
 
-/** Every node in a data room, used to render the sidebar folder tree. */
 export function useRoomNodes(
   roomId: string | undefined,
 ): DataNode[] | undefined {
@@ -74,7 +70,6 @@ export function useRoomNodes(
   }, [roomId]);
 }
 
-/** The stored PDF content for a file node. */
 export function useFileBlob(
   nodeId: string | undefined,
 ): Blob | null | undefined {

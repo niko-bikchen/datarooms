@@ -30,7 +30,6 @@ function getSubtitle(file: DataNode | null): string {
   return formatBytes(file.size);
 }
 
-/** Full-screen dialog rendering the stored PDF via the browser's native viewer. */
 export default function PdfViewer({ file, onOpenChange }: PdfViewerProps) {
   // Keep the last opened file (and its blob/url) rendered during the close animation.
   const lastFileRef = useRef<DataNode | null>(null);

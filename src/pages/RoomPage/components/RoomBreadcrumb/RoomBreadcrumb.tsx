@@ -18,7 +18,6 @@ interface RoomBreadcrumbProps {
   path: DataNode[] | undefined;
 }
 
-/** Data-rooms link followed by the ancestor path down to the current folder. */
 export default function RoomBreadcrumb({ path }: RoomBreadcrumbProps) {
   const items = path ?? [];
   const lastIndex = items.length - 1;

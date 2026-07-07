@@ -1,9 +1,7 @@
 import Dexie, { type EntityTable } from "dexie";
 
-/**
- * IndexedDB keys cannot be null, so top-level nodes (data rooms) use this
- * sentinel as their parentId instead of null.
- */
+// IndexedDB keys cannot be null, so top-level nodes (data rooms) use this
+// sentinel as their parentId instead of null.
 export const ROOT_ID = "root";
 
 export const NODE_KIND = {
@@ -18,25 +16,23 @@ export const BLOBS_TABLE = "blobs";
 
 export interface DataNode {
   id: string;
-  /** ROOT_ID for data rooms, otherwise the id of the containing folder. */
+  // ROOT_ID for data rooms, otherwise the id of the containing folder.
   parentId: string;
-  /** Id of the data room this node belongs to (rooms point to themselves). */
+  // Id of the data room this node belongs to (rooms point to themselves).
   roomId: string;
   kind: NodeKind;
   name: string;
   createdAt: number;
   updatedAt: number;
-  /** File size in bytes; only present on files. */
   size?: number;
 }
 
-/** PDF binary content, stored separately so node listings stay lightweight. */
+// PDF binary content, stored separately so node listings stay lightweight.
 export interface FileBlob {
   nodeId: string;
   blob: Blob;
 }
 
-/** Data rooms are the top-level nodes; everything else lives inside one. */
 export const isRoom = (node: DataNode): boolean => node.parentId === ROOT_ID;
 
 export const db = new Dexie("datarooms") as Dexie & {

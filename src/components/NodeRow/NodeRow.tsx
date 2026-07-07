@@ -19,7 +19,6 @@ interface NodeRowProps {
   onOpen: (node: DataNode) => void;
   onRename: (node: DataNode) => void;
   onDelete: (node: DataNode) => void;
-  /** Extra line under the name, e.g. the containing path in search results. */
   subtitle?: string;
 }
 
@@ -28,7 +27,6 @@ function getSizeText(node: DataNode): string {
   return formatBytes(node.size);
 }
 
-/** One folder or file row in the content list. */
 export default function NodeRow({
   node,
   onOpen,

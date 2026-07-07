@@ -33,7 +33,6 @@ function getRenameTitle(node: DataNode | null): string {
   return node?.kind === NODE_KIND.file ? "Rename file" : "Rename folder";
 }
 
-/** Browser view for a folder (or the data room root) — tree, breadcrumbs, content. */
 export default function RoomPage() {
   const { folderId } = useParams<{ folderId: string }>();
 

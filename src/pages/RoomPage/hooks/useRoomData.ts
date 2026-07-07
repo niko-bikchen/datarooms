@@ -2,7 +2,6 @@ import { NODE_KIND } from "@/lib/db";
 
 import { useChildren, useNode, usePath, useRoomNodes } from "@/hooks/useNodes";
 
-/** Reactive reads for the current folder plus its room, ancestor path and children. */
 export default function useRoomData(folderId: string | undefined) {
   const folder = useNode(folderId);
   const path = usePath(folder);

@@ -19,7 +19,6 @@ import "./HomePage.scss";
 import { TRY_AGAIN_DESCRIPTION } from "@/lib/constants";
 import { folderPath } from "@/lib/routes";
 
-/** Landing page listing all data rooms. */
 export default function HomePage() {
   const navigate = useNavigate();
   const rooms = useRooms();

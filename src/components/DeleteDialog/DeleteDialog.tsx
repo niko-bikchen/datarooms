@@ -55,7 +55,6 @@ function getDescription(
   return `This ${noun} is empty and will be permanently deleted.`;
 }
 
-/** Confirmation dialog that warns how many nested items a delete will remove. */
 export default function DeleteDialog({
   node,
   onOpenChange,
