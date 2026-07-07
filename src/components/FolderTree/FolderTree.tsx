@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { compareNodes } from "@/lib/compareNodes";
 import { isRoom, NODE_KIND, type DataNode } from "@/lib/db";
 
-import { TreeLevel } from "./TreeLevel";
+import TreeLevel from "./components/TreeLevel/TreeLevel";
 
 import "./FolderTree.scss";
 
@@ -16,7 +16,7 @@ interface FolderTreeProps {
 }
 
 /** Collapsible folder hierarchy shown in the room sidebar. */
-export function FolderTree({
+export default function FolderTree({
   nodes,
   roomId,
   currentFolderId,
@@ -24,14 +24,18 @@ export function FolderTree({
 }: FolderTreeProps) {
   const childrenByParent = useMemo(() => {
     const map = new Map<string, DataNode[]>();
+
     for (const node of nodes) {
       if (node.kind !== NODE_KIND.folder || isRoom(node)) continue;
+
       const list = map.get(node.parentId) ?? [];
+
       list.push(node);
       map.set(node.parentId, list);
     }
 
     for (const list of map.values()) list.sort(compareNodes);
+
     return map;
   }, [nodes]);
 

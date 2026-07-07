@@ -9,7 +9,7 @@ interface PdfViewerPreviewProps {
 }
 
 /** The document area: native browser viewer, missing-content notice, or skeleton. */
-export function PdfViewerPreview({
+export default function PdfViewerPreview({
   url,
   title,
   contentMissing,

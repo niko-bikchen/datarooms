@@ -4,8 +4,9 @@ import type { DataNode } from "@/lib/db";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { EmptyState } from "@/components/EmptyState/EmptyState";
-import { NodeRow } from "@/components/NodeRow/NodeRow";
+
+import EmptyState from "@/components/EmptyState/EmptyState";
+import NodeRow from "@/components/NodeRow/NodeRow";
 
 interface RoomContentProps {
   /** Folder children, or search results while searching; `undefined` while loading. */
@@ -24,7 +25,7 @@ interface RoomContentProps {
 }
 
 /** The folder listing: rows, no-results state, empty-folder state, or skeletons. */
-export function RoomContent({
+export default function RoomContent({
   nodes,
   ready,
   searching,

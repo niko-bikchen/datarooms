@@ -9,7 +9,7 @@ interface PdfViewerActionProps {
 }
 
 /** Toolbar action for the viewer header: open-in-tab or download. */
-export function PdfViewerAction({
+export default function PdfViewerAction({
   href,
   downloadName,
   children,

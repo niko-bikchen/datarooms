@@ -1,8 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { Toaster } from "@/components/ui/sonner";
-import { HomePage } from "@/pages/HomePage/HomePage";
-import { RoomPage } from "@/pages/RoomPage/RoomPage";
+import HomePage from "@/pages/HomePage/HomePage";
+import RoomPage from "@/pages/RoomPage/RoomPage";
 
 import { FOLDER_ROUTE_PATTERN, HOME_PATH } from "@/lib/routes";
 

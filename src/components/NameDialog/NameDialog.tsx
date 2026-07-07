@@ -28,11 +28,12 @@ interface NameDialogProps {
 
 function getErrorMessage(err: unknown): string {
   if (err instanceof UserFacingError) return err.message;
+
   return "Something went wrong. Please try again.";
 }
 
 /** Shared create/rename dialog with empty-name and conflict error handling. */
-export function NameDialog({
+export default function NameDialog({
   open,
   onOpenChange,
   title,
@@ -71,6 +72,7 @@ export function NameDialog({
     event.preventDefault();
 
     const name = value.trim();
+
     if (!name) {
       setError("Name cannot be empty.");
       inputRef.current?.focus();
@@ -78,6 +80,7 @@ export function NameDialog({
     }
 
     setBusy(true);
+
     try {
       await onSubmit(name);
       onOpenChange(false);

@@ -29,7 +29,7 @@ function getMeta(room: DataNode, itemCount: number): string {
 }
 
 /** One data room on the home page grid. */
-export function RoomCard({
+export default function RoomCard({
   room,
   itemCount,
   onOpen,

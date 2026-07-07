@@ -7,7 +7,9 @@ import { NODE_KIND, type DataNode } from "@/lib/db";
  * Number of items nested under a folder. `null` while the count is being
  * computed — callers must not claim the folder is empty until it resolves.
  */
-export function useDescendantCount(node: DataNode | null): number | null {
+export default function useDescendantCount(
+  node: DataNode | null,
+): number | null {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {

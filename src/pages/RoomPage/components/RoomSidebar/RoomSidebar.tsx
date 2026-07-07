@@ -1,7 +1,8 @@
 import type { DataNode } from "@/lib/db";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { FolderTree } from "@/components/FolderTree/FolderTree";
+
+import FolderTree from "@/components/FolderTree/FolderTree";
 
 interface RoomSidebarProps {
   /** Every node of the room; `undefined` while loading. */
@@ -12,7 +13,7 @@ interface RoomSidebarProps {
 }
 
 /** Sidebar folder tree, with a loading placeholder. */
-export function RoomSidebar({
+export default function RoomSidebar({
   roomNodes,
   roomId,
   currentFolderId,

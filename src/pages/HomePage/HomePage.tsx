@@ -9,9 +9,10 @@ import type { DataNode } from "@/lib/db";
 import { useRoomItemCounts, useRooms } from "@/hooks/useNodes";
 
 import { Button } from "@/components/ui/button";
-import { DeleteDialog } from "@/components/DeleteDialog/DeleteDialog";
-import { NameDialog } from "@/components/NameDialog/NameDialog";
-import { RoomGrid } from "./RoomGrid";
+
+import DeleteDialog from "@/components/DeleteDialog/DeleteDialog";
+import NameDialog from "@/components/NameDialog/NameDialog";
+import RoomGrid from "./components/RoomGrid/RoomGrid";
 
 import "./HomePage.scss";
 
@@ -19,7 +20,7 @@ import { TRY_AGAIN_DESCRIPTION } from "@/lib/constants";
 import { folderPath } from "@/lib/routes";
 
 /** Landing page listing all data rooms. */
-export function HomePage() {
+export default function HomePage() {
   const navigate = useNavigate();
   const rooms = useRooms();
   const itemCounts = useRoomItemCounts();

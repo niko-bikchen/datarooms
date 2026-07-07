@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
  * Exposes a blob through a temporary object URL. Created in an effect (not
  * render) so StrictMode's double render can't leak URLs, and revoked on change.
  */
-export function usePdfObjectUrl(blob: Blob | null | undefined): string | null {
+export default function usePdfObjectUrl(
+  blob: Blob | null | undefined,
+): string | null {
   const [url, setUrl] = useState<string | null>(null);
 
   useEffect(() => {

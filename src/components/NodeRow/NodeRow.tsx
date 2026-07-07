@@ -29,7 +29,7 @@ function getSizeText(node: DataNode): string {
 }
 
 /** One folder or file row in the content list. */
-export function NodeRow({
+export default function NodeRow({
   node,
   onOpen,
   onRename,

@@ -5,8 +5,9 @@ import type { DataNode } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { EmptyState } from "@/components/EmptyState/EmptyState";
-import { RoomCard } from "./RoomCard/RoomCard";
+
+import EmptyState from "@/components/EmptyState/EmptyState";
+import RoomCard from "../RoomCard/RoomCard";
 
 interface RoomGridProps {
   /** All data rooms; `undefined` while loading. */
@@ -19,7 +20,7 @@ interface RoomGridProps {
 }
 
 /** The data room grid: cards, first-run empty state, or loading skeletons. */
-export function RoomGrid({
+export default function RoomGrid({
   rooms,
   itemCounts,
   onOpen,

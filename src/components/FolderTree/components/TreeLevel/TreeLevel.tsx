@@ -1,6 +1,6 @@
 import type { DataNode } from "@/lib/db";
 
-import { TreeItem } from "./TreeItem";
+import TreeItem from "../TreeItem/TreeItem";
 
 export interface TreeLevelProps {
   parentId: string;
@@ -12,7 +12,7 @@ export interface TreeLevelProps {
 }
 
 /** One indentation level of the folder tree. */
-export function TreeLevel({
+export default function TreeLevel({
   parentId,
   depth,
   childrenByParent,

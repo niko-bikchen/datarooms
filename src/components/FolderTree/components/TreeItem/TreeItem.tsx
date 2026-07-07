@@ -4,7 +4,7 @@ import { ChevronRight, Folder, FolderOpen } from "lucide-react";
 import type { DataNode } from "@/lib/db";
 import { cn } from "@/lib/utils";
 
-import { TreeLevel, type TreeLevelProps } from "./TreeLevel";
+import TreeLevel, { type TreeLevelProps } from "../TreeLevel/TreeLevel";
 
 interface TreeItemProps extends Omit<TreeLevelProps, "parentId"> {
   folder: DataNode;
@@ -15,7 +15,7 @@ function getToggleLabel(expanded: boolean, folderName: string): string {
 }
 
 /** A single folder in the tree, with its expand/collapse state. */
-export function TreeItem({
+export default function TreeItem({
   folder,
   depth,
   childrenByParent,

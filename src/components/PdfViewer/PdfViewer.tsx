@@ -5,7 +5,7 @@ import type { DataNode } from "@/lib/db";
 import { formatBytes } from "@/lib/format";
 
 import { useFileBlob } from "@/hooks/useNodes";
-import { usePdfObjectUrl } from "./usePdfObjectUrl";
+import usePdfObjectUrl from "./hooks/usePdfObjectUrl";
 
 import {
   Dialog,
@@ -14,8 +14,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { PdfViewerAction } from "./PdfViewerAction";
-import { PdfViewerPreview } from "./PdfViewerPreview";
+
+import PdfViewerAction from "./components/PdfViewerAction/PdfViewerAction";
+import PdfViewerPreview from "./components/PdfViewerPreview/PdfViewerPreview";
 
 import "./PdfViewer.scss";
 
@@ -30,7 +31,7 @@ function getSubtitle(file: DataNode | null): string {
 }
 
 /** Full-screen dialog rendering the stored PDF via the browser's native viewer. */
-export function PdfViewer({ file, onOpenChange }: PdfViewerProps) {
+export default function PdfViewer({ file, onOpenChange }: PdfViewerProps) {
   // Keep the last opened file (and its blob/url) rendered during the close animation.
   const lastFileRef = useRef<DataNode | null>(null);
   if (file) lastFileRef.current = file;
