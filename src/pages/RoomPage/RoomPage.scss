@@ -7,8 +7,9 @@
 .roomPageHeader {
   display: flex;
   flex: none;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem 0.75rem;
   padding: 0.625rem 1rem;
 
   border-bottom: 1px solid var(--border);
@@ -16,17 +17,26 @@
 
 .roomPageToolbar {
   display: flex;
-  flex: none;
-  margin-left: auto;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  min-width: 0;
   align-items: center;
   gap: 0.5rem;
+
+  @media (min-width: 640px) {
+    flex: none;
+    flex-wrap: nowrap;
+    margin-left: auto;
+  }
 }
 
 .roomPageSearch {
   height: 2rem;
-  width: 11rem;
+  flex: 1 1 100%;
+  min-width: 8rem;
 
   @media (min-width: 640px) {
+    flex: none;
     width: 16rem;
   }
 }
